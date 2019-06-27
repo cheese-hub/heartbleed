@@ -1,0 +1,41 @@
+<html>
+<head/>
+<body>
+<h1> Instructions for Reproducing the Heartbleed Bug </h1>
+
+<ol>
+<li> On the container list, click the "Console" icon for the Server container to launch a new terminal window.</li>
+<li> Determine the IP address of the Server by typing <i>ifconfig</i> at the terminal prompt. </li>
+<li> On the Hacker VNC window, launch the Firefox web browser from the bottom left corner. </li>
+<li> Attempt to login to the Server webpage by navigating to the Server's IP address in Firefox. </li>
+<li> Typically, a Hacker is unaware of the valid login details for such a website; <br/> we will show 
+how the HeartBleed bug can be exploited to circumvent this requirement and access secured webpages on 
+the Server.</li>
+<li> On the Victim VNC window, launch the Firefox web browser from the bottom left corner. </li>
+<li> Navigate to the Server's IP address in the browser. </li>
+<li> Login with the username <i>foo</i> and password <i>bar</i>. </li>
+<li> At this point, the user has logged in to the Server. The Server uses session cookies, so that the user 
+does not need to re-login to the Server unless they close the browser window.</li>
+<li> In a new browser tab on the Victim, navigate to the Server's IP again. You should see the Welcome message 
+instead of being prompted to login again. This is the session cookie in action. </li>
+<li> The Hacker will exploit this fact and the Heartbleed bug, to retrieve session cookies from the Server. </li>
+<li> On the Hacker VNC window, launch a terminal from the bottom left corner, under Administrative Tools.</li>
+<li> At the terminal prompt, run <i>python Hacker.py [Server's IP]</i>. The script should run and either print out 
+the retrieved session cookie; or fail to print anything.</li>
+<li> If a session cookie is obtained, set that token in the Hacker's browser as follows:
+<ol>
+<li> Open a new browser tab and navigate to the Server's IP address.</li>
+<li> From the top right corner in the browser window, click the icon with the three horizontal lines, then select <i>Web Developer</i>, 
+followed by <i>Storage Inspector</i>.</li>
+<li> You should see a console at the bottom of the browser window, with a <i>Cookies</i> section in the pane on the left, and an 
+entry for the Server's IP address.</li>
+<li> Click on the <i>Value</i> entry, and paste the session cookie obtained by running the Hacker.py script there.</li>
+<li> Now navigate to the Server's IP address again in this browser tab, and you should be presented with the Welcome message as if, 
+you have logged in successfully.</li>
+</ol>
+</li>
+<li> Note that you may need to re-run the Hacker.py script several times to obtain the session cookie and try setting them 
+in your Hacker browser.</li>
+</ol>
+</body>
+</html>
